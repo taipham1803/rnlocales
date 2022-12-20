@@ -1,6 +1,7 @@
 import {NativeModules, I18nManager, Platform} from 'react-native';
 import RNRestart from 'react-native-restart';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import i18n from 'i18next';
 
 export const getDeviceLang = () => {
   if (Platform.OS === 'ios') {
@@ -39,4 +40,22 @@ export const languageDetector = {
     callback(deviceLang);
   },
   cacheUserLanguage: () => {},
+};
+
+export const onLangChange = async userLang => {
+  // const userLang = await AsyncStorage.getItem(USER_LANG);
+  const lang = userLang || getDeviceLang();
+  const isLangRTL = `${lang}`.includes('ar_'); // ar_US
+  /** 1. Store user-preferred lang  */
+  await AsyncStorage.setItem(USER_LANG, lang);
+  /** 2. re-translate the app to `lang`  */
+  await i18n.changeLanguage(lang);
+  /** 3. */
+  if (isLangRTL !== I18nManager.isRTL) {
+    /** Change app direction in case of mismatch */
+    await I18nManager.allowRTL(isLangRTL);
+    await I18nManager.forceRTL(isLangRTL);
+    /** Force restart for the app for the changes to take effect */
+    RNRestart.Restart();
+  }
 };

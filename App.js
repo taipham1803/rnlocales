@@ -8,6 +8,7 @@
 
 import React from 'react';
 import {
+  Button,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -20,6 +21,7 @@ import {
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 import i18n from './src/utils/i18n';
+import {onLangChange} from './src/utils/languageDetector';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
@@ -63,8 +65,8 @@ const App = React.memo(() => {
         backgroundColor={backgroundStyle.backgroundColor}
       />
       <View style={styles.headerContainer}>
-        <Text style={styles.loginLabel}>{'Login (Left)'}</Text>
-        <Text style={styles.signupLabel}>{'Signup (Right)'}</Text>
+        <Text style={styles.loginLabel}>{i18n.t('login')} (Login)</Text>
+        <Text style={styles.signupLabel}>{i18n.t('signup')} (Signup)</Text>
       </View>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
@@ -74,9 +76,19 @@ const App = React.memo(() => {
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
           <Section title={i18n.t('welcome')}>
-            {i18n.t('edit')} <Text style={styles.highlight}>App.js</Text>
+            {i18n.t('edit')} <Text style={styles.highlight}>App.js </Text>
             {i18n.t('to_change_this_screen')}
           </Section>
+          <View style={styles.btnContainer}>
+            <Button
+              title="Change Lang to ar_US"
+              onPress={() => onLangChange('ar_US')}
+            />
+            <Button
+              title="Change Lang to en_US"
+              onPress={() => onLangChange('en_US')}
+            />
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -111,6 +123,9 @@ const styles = StyleSheet.create({
   },
   signupLabel: {
     color: 'blue',
+  },
+  btnContainer: {
+    marginTop: 24,
   },
 });
 

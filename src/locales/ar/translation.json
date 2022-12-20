@@ -1,5 +1,7 @@
 {
-  "welcome": "Welcome (in Arabic)",
+  "welcome": "أهلا بك",
   "edit": "تعديل",
-  "to_change_this_screen": "لتغيير هذه الشاشة ثم العودة لمشاهدة تعديلاتك"
+  "to_change_this_screen": "لتغيير هذه الشاشة ثم العودة لمشاهدة تعديلاتك",
+  "login": "تسجيل الدخول",
+  "signup": "اشتراك"
 }
