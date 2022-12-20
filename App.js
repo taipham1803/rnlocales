@@ -59,7 +59,7 @@ const App = React.memo(() => {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <SafeAreaView style={[styles.safeAreaView, backgroundStyle]}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
@@ -68,29 +68,20 @@ const App = React.memo(() => {
         <Text style={styles.loginLabel}>{i18n.t('login')} (Login)</Text>
         <Text style={styles.signupLabel}>{i18n.t('signup')} (Signup)</Text>
       </View>
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title={i18n.t('welcome')}>
-            {i18n.t('edit')} <Text style={styles.highlight}>App.js </Text>
-            {i18n.t('to_change_this_screen')}
-          </Section>
-          <View style={styles.btnContainer}>
-            <Button
-              title="Change Lang to ar_US"
-              onPress={() => onLangChange('ar_US')}
-            />
-            <Button
-              title="Change Lang to en_US"
-              onPress={() => onLangChange('en_US')}
-            />
-          </View>
-        </View>
-      </ScrollView>
+      <Section title={i18n.t('welcome')}>
+        {i18n.t('edit')} <Text style={styles.highlight}>App.js </Text>
+        {i18n.t('to_change_this_screen')}
+      </Section>
+      <View style={styles.btnContainer}>
+        <Button
+          title="Change Lang to ar_US"
+          onPress={() => onLangChange('ar_US')}
+        />
+        <Button
+          title="Change Lang to en_US"
+          onPress={() => onLangChange('en_US')}
+        />
+      </View>
     </SafeAreaView>
   );
 });
@@ -99,6 +90,7 @@ const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
+    alignItems: 'flex-start',
   },
   sectionTitle: {
     fontSize: 24,
@@ -126,6 +118,10 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     marginTop: 24,
+  },
+  safeAreaView: {
+    flex: 1,
+    backgroundColor: 'white',
   },
 });
 
